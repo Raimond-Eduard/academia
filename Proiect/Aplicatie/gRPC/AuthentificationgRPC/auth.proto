@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package auth;
+
+service AuthService {
+  rpc Authenticate (AuthRequest) returns (AuthResponse);
+  rpc ValidateToken (TokenRequest) returns (ValidationResponse);
+  rpc DestroyToken (TokenRequest) returns (DestroyResponse);
+}
+
+message AuthRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message AuthResponse {
+  string token = 1; // Token in Base64Url format
+}
+
+message TokenRequest {
+  string token = 1; // JWS Token
+}
+
+message ValidationResponse {
+  string sub = 1;   // User ID
+  string role = 2;  // Role ID
+}
+
+message DestroyResponse {
+  string message = 1;
+}
